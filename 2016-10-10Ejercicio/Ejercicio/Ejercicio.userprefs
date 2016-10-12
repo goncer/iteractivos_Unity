@@ -1,14 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerController.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="55" Column="4" />
-      <File FileName="Assets\Scripts\PartController.cs" Line="17" Column="9" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="31" Column="27" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="43" Column="41" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyControler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PartController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\goncer\_git\iteractivos_Unity\2016-10-10Ejercicio\Ejercicio\Assets\Scripts\PlayerController.cs" line="25" column="13" />
+      <Breakpoint file="C:\Users\goncer\_git\iteractivos_Unity\2016-10-10Ejercicio\Ejercicio\Assets\Scripts\PlayerController.cs" line="50" column="22" />
+      <Breakpoint file="C:\Users\goncer\_git\iteractivos_Unity\2016-10-10Ejercicio\Ejercicio\Assets\Scripts\PlayerController.cs" line="48" column="10" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -5,6 +5,7 @@ using System.Collections;
 public class EnemyControler : MonoBehaviour
 {
 	public const int SECONDS_BETWEEN_ATTACK = 2;
+	public float powerHit = 0F;
 	//public int raisePlayer = 5;
 	private GameObject player;
 	private Rigidbody playerRigid;
@@ -12,6 +13,9 @@ public class EnemyControler : MonoBehaviour
 	private NavMeshAgent pathFinder;
 	private Animator anim;
 	private bool isActivate;
+
+	private System.DateTime? lastHitTime = null;
+	private GameController gameController;
 
 
 	// Use this for initialization
@@ -22,6 +26,14 @@ public class EnemyControler : MonoBehaviour
 		anim = this.GetComponent<Animator> ();
 		isActivate = false;
 		playerRigid = player.GetComponent<Rigidbody> ();
+
+		//Looking for the GameController Script
+		gameController = (FindObjectsOfType (typeof(GameController)) 
+			as GameController[]) [0];
+		//get the speed of the actual onbject.
+		float speedAplied = (FindObjectsOfType (typeof(PlayerController)) 
+			as PlayerController[]) [0].speed;
+		this.powerHit = speedAplied * 3;
 	}
 	
 	// Update is called once per frame
@@ -47,6 +59,17 @@ public class EnemyControler : MonoBehaviour
 	//If the enemy touches the player, the player is wounded
 	void OnCollisionEnter (Collision collision)
 	{
+		if(collision.gameObject.name.Equals(player.gameObject.name) ){
+			
+			if (lastHitTime == null || lastHitTime < System.DateTime.Now.AddSeconds(SECONDS_BETWEEN_ATTACK)){
+				//there where more than 2 sec between last impact OR null
+				lastHitTime = System.DateTime.Now;
+				this.gameController.PlayerGotHit();
+				//getSpeedValue.
+				player.GetComponent<Rigidbody> ()
+					.AddExplosionForce ( powerHit, this.transform.position,5.0F);
+			}
+		}
 	}
 
 	//Auxilliary services

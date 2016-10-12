@@ -7,7 +7,6 @@ public class GameController : MonoBehaviour {
 	private int score = 0;
 	public Text scoreBoard = null;
 	private string textScoreBoard = "";
-	private int numCubes = 0;
 	private GameObject player;
 	// Use this for initialization
 	void Start () {
@@ -15,8 +14,6 @@ public class GameController : MonoBehaviour {
 			textScoreBoard = scoreBoard.text;
 		}
 		player = GameObject.FindGameObjectWithTag ("Player");
-
-		numCubes = GameObject.FindGameObjectsWithTag ("Collect Me").Length;
 	}
 		
 	// Update is called once per frame
@@ -27,16 +24,28 @@ public class GameController : MonoBehaviour {
 	//Services provided
 	public void PartCollected (){
 		score += GameController.POINT_PER_PART;
-		numCubes--;
 		if (scoreBoard != null){
 			scoreBoard.text = textScoreBoard + score;
 		}
-		if (numCubes.Equals (0)) {
-			scoreBoard.text = "You WON! with:" + score + "points";
+		var remainingElements = GameObject.FindGameObjectsWithTag ("Collect Me");
+		//is the last element ?
+		if (remainingElements.Length == 1) {
+			scoreBoard.text = "You WIN! with:" + score + "points";
 		}
 			
 	}
-		
-	//Auxilar services
 
+	public void PlayerGotHit()
+	{
+		this.score -= 2 *  POINT_PER_PART;
+		CheckGameStatus();
+	}
+
+	//Auxilar services
+	private void CheckGameStatus()
+	{
+		if (this.score < 0) {
+			scoreBoard.text = "You Loose! Score < 0"; 
+		}
+	}
 }
