@@ -31,9 +31,11 @@ public class GameController : MonoBehaviour {
 		//is the last element ?
 		if (remainingElements.Length == 1) {
 			scoreBoard.text = "You WIN! with:" + score + "points";
+			this.EndGame ();
 		}
 			
 	}
+
 
 	public void PlayerGotHit()
 	{
@@ -46,6 +48,11 @@ public class GameController : MonoBehaviour {
 	{
 		if (this.score < 0) {
 			scoreBoard.text = "You Loose! Score < 0"; 
+			this.EndGame ();
 		}
+	}
+	private void EndGame()
+	{
+		Time.timeScale = 0.0f;
 	}
 }

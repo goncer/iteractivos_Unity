@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent (typeof(NavMeshAgent))]  //With this stament we force Unity to add a NavMeshAgent to a game object
 public class EnemyControler : MonoBehaviour
 {
-	public const int SECONDS_BETWEEN_ATTACK = 2;
+	public const int SECONDS_BETWEEN_ATTACK =2;
 	public float powerHit = 0F;
 	//public int raisePlayer = 5;
 	private GameObject player;
@@ -14,7 +14,7 @@ public class EnemyControler : MonoBehaviour
 	private Animator anim;
 	private bool isActivate;
 
-	private System.DateTime? lastHitTime = null;
+	private System.DateTime lastHitTime = new System.DateTime();
 	private GameController gameController;
 
 
@@ -33,7 +33,7 @@ public class EnemyControler : MonoBehaviour
 		//get the speed of the actual onbject.
 		float speedAplied = (FindObjectsOfType (typeof(PlayerController)) 
 			as PlayerController[]) [0].speed;
-		this.powerHit = speedAplied * 3;
+		this.powerHit = speedAplied * 1;
 	}
 	
 	// Update is called once per frame
@@ -61,14 +61,16 @@ public class EnemyControler : MonoBehaviour
 	{
 		if(collision.gameObject.name.Equals(player.gameObject.name) ){
 			
-			if (lastHitTime == null || lastHitTime < System.DateTime.Now.AddSeconds(SECONDS_BETWEEN_ATTACK)){
+			if (lastHitTime.AddSeconds (SECONDS_BETWEEN_ATTACK) < System.DateTime.Now) {
 				//there where more than 2 sec between last impact OR null
 				lastHitTime = System.DateTime.Now;
-				this.gameController.PlayerGotHit();
+				this.gameController.PlayerGotHit ();
 				//getSpeedValue.
 				player.GetComponent<Rigidbody> ()
-					.AddExplosionForce ( powerHit, this.transform.position,5.0F);
-			}
+					.AddExplosionForce (powerHit, this.transform.position, 5.0F);
+				
+			} else
+				Debug.Log ("Enemy: Waiting a few seconds to attack again!");
 		}
 	}
 

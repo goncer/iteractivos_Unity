@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject plane;
 	private const string TAG_COLLECT = "Collect Me";
 	private GameController gameController;
-
+	private Rect limits = new Rect();
 	/*
 	 *  In order to illustrate how Collision detection works, set speed to 15000
 	 * and then ensure that collision detection in the rigdbody is set to Discrete. 
@@ -21,10 +21,8 @@ public class PlayerController : MonoBehaviour {
 		//Looking for the GameController Script
 		gameController = (FindObjectsOfType (typeof(GameController)) 
 			as GameController[]) [0];
-
-
-
-
+		//create an object rect to check if the player is between the limits
+		limits = new Rect(plane.transform.position,new Vector2 (plane.transform.lossyScale.x,plane.transform.lossyScale.z));
 	}
 	
 	// Update is called once per frame
@@ -44,11 +42,6 @@ public class PlayerController : MonoBehaviour {
 		float z = Input.GetAxis("Vertical");
 		Vector3 force = new Vector3 (x * speed * Time.deltaTime,0,z * speed * Time.deltaTime);
 		rigid.AddForce(force);
-
-		var rect = plane.GetComponent<Rect> ();
-		if (! rect.Contains ( new Vector3 (this.transform.position.x ,0, this.transform.position.z ) ,false)) {
-			bool isOut = true;
-		}
 	}
 
 	//Collecting
