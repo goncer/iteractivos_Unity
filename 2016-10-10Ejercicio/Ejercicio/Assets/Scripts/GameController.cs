@@ -6,14 +6,17 @@ public class GameController : MonoBehaviour {
 	private const int POINT_PER_PART = 5;
 	private int score = 0;
 	public Text scoreBoard = null;
+
 	private string textScoreBoard = "";
 	private GameObject player;
+	private int fiftyPercent;
 	// Use this for initialization
 	void Start () {
 		if (scoreBoard != null){
 			textScoreBoard = scoreBoard.text;
 		}
 		player = GameObject.FindGameObjectWithTag ("Player");
+		fiftyPercent = Mathf.RoundToInt (GameObject.FindGameObjectsWithTag ("Collect Me").Length / 2);
 	}
 		
 	// Update is called once per frame
@@ -32,6 +35,10 @@ public class GameController : MonoBehaviour {
 		if (remainingElements.Length == 1) {
 			scoreBoard.text = "You WIN! with:" + score + "points";
 			this.EndGame ();
+		}
+		if (remainingElements.Length <= fiftyPercent) {
+			var enemy = GameObject.FindObjectsOfType<EnemyControler> ();
+			enemy[0].kill ();
 		}
 			
 	}

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 	private const string TAG_COLLECT = "Collect Me";
 	private GameController gameController;
 	private Rect limits = new Rect();
+	private  const  int PERCENTAGE_INCREASE = 5;
 	/*
 	 *  In order to illustrate how Collision detection works, set speed to 15000
 	 * and then ensure that collision detection in the rigdbody is set to Discrete. 
@@ -57,6 +58,11 @@ public class PlayerController : MonoBehaviour {
 		{//IF //The object was collected and must be destroyed
 			GameObject.Destroy(other.gameObject);
 			SendMessage("PartCollected");
+			PartController[] remainingElements = GameObject.FindObjectsOfType<PartController>();
+			foreach (var item in remainingElements) {
+				item.increaseSpeed (PERCENTAGE_INCREASE);
+			}
+
 		}//IF
 	}
 

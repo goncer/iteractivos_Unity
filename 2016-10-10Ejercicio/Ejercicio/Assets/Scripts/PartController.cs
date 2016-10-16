@@ -54,4 +54,10 @@ public class PartController : MonoBehaviour {
 			break;
 		}//SW
 	}
+	public void increaseSpeed(int percentage)
+	{
+		Debug.Log ("Incresing Speed from : " + speed );
+		speed = speed + (speed * percentage / 100);
+		Debug.Log ("To : " + speed );
+	}
 }

@@ -14,6 +14,7 @@ public class EnemyControler : MonoBehaviour
 	private Animator anim;
 	private bool isActivate;
 
+
 	private System.DateTime lastHitTime = new System.DateTime();
 	private GameController gameController;
 
@@ -72,6 +73,11 @@ public class EnemyControler : MonoBehaviour
 			} else
 				Debug.Log ("Enemy: Waiting a few seconds to attack again!");
 		}
+	}
+	public void kill()
+	{
+		this.transform.Rotate (90.0f, 0f, 0f);
+		this.CancelInvoke();
 	}
 
 	//Auxilliary services
