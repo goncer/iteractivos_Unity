@@ -76,8 +76,8 @@ public class EnemyControler : MonoBehaviour
 	}
 	public void kill()
 	{
-		this.transform.Rotate (90.0f, 0f, 0f);
-		this.CancelInvoke();
+		this.speedAplied = 0.0f;
+		anim.se
 	}
 
 	//Auxilliary services
