@@ -37,8 +37,11 @@ public class GameController : MonoBehaviour {
 			this.EndGame ();
 		}
 		if (remainingElements.Length <= fiftyPercent) {
-			var enemy = GameObject.FindObjectsOfType<EnemyControler> ();
-			enemy[0].kill ();
+			var enemies = GameObject.FindObjectsOfType<EnemyControler> ();
+			foreach (var enemy in enemies ) {
+				enemy.kill ();	
+			}
+
 		}
 			
 	}
@@ -47,12 +50,14 @@ public class GameController : MonoBehaviour {
 	public void PlayerGotHit()
 	{
 		this.score -= 2 *  POINT_PER_PART;
+		scoreBoard.text =textScoreBoard +  this.score.ToString();
 		CheckGameStatus();
 	}
 
 	//Auxilar services
 	private void CheckGameStatus()
 	{
+		
 		if (this.score < 0) {
 			scoreBoard.text = "You Loose! Score < 0"; 
 			this.EndGame ();

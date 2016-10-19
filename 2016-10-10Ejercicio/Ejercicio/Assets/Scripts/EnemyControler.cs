@@ -13,6 +13,7 @@ public class EnemyControler : MonoBehaviour
 	private NavMeshAgent pathFinder;
 	private Animator anim;
 	private bool isActivate;
+	private bool gotKilled = false;
 
 
 	private System.DateTime lastHitTime = new System.DateTime();
@@ -34,26 +35,28 @@ public class EnemyControler : MonoBehaviour
 		//get the speed of the actual onbject.
 		float speedAplied = (FindObjectsOfType (typeof(PlayerController)) 
 			as PlayerController[]) [0].speed;
-		this.powerHit = speedAplied * 1;
+		this.powerHit = speedAplied * 3;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if ( this.isActivate) {
+		if (!this.gotKilled && this.isActivate) {
 			//A new destination to NavMesAgent is set
 			pathFinder.SetDestination (player.transform.position);
-		}
+			Debug.Log ("Following!");
+		} 
 		//is walking
-		anim.SetBool ("isWalking", this.isActivate &&
+		anim.SetBool ("isWalking",!this.gotKilled && this.isActivate &&
 		pathFinder.remainingDistance > pathFinder.stoppingDistance);
 	}
 
 	//The enemy activation when he will see the player
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.gameObject.tag.Equals ("Player")) {
+		if (!this.gotKilled && other.gameObject.tag.Equals ("Player")) {
 			this.isActivate = true;
+			Debug.Log ("Activting!");
 		}
 	}
 
@@ -76,8 +79,16 @@ public class EnemyControler : MonoBehaviour
 	}
 	public void kill()
 	{
-		this.speedAplied = 0.0f;
-		anim.se
+		Debug.Log ("Enemy: Killed!");
+		anim.SetBool ("killed", true);
+		this.isActivate = false;
+		this.gotKilled = true;
+		this.pathFinder.Stop();
+	}
+
+	public void StartSinking ()
+	{
+		
 	}
 
 	//Auxilliary services
